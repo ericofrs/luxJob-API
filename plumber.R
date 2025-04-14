@@ -1,4 +1,5 @@
 library(plumber)
+library(luxJob)
 
 #* @apiTitle Basic luxJob API
 #* @apiDescription This is a simple API to demonstrate the use of luxJob
