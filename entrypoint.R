@@ -5,11 +5,10 @@ add_auth <- function(
   
   api[["components"]] <- list(
     securitySchemes = list(
-      ApiKeyAuth = list(
-        type = "apiKey",
-        `in` = "header",
-        name = "X-WORKSHOP-KEY",
-        description = "Add API Key here"
+      bearerAuth = list(
+        type = "http",
+        scheme = "bearer",
+        description = "Add bearer token here"
       )
     )
   )
@@ -20,7 +19,7 @@ add_auth <- function(
     for (p in intersect(nn, c("get", "head", "post", "put", "delete"))) {
       api$paths[[path]][[p]] <- c(
         api$paths[[path]][[p]],
-        list(security = list(list(ApiKeyAuth = vector())))
+        list(security = list(list(bearerAuth = vector())))
       )
     }
   }
@@ -34,7 +33,7 @@ pr("plumber.R") |> #nolint
   pr_hook("preroute", function(req, res) {
     res$setHeader("Access-Control-Allow-Origin", "http://localhost:1234")
     res$setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-    res$setHeader("Access-Control-Allow-Headers", "X-WORKSHOP-KEY, Accept")
+    res$setHeader("Access-Control-Allow-Headers", "Authorization, Accept, Content-Type")
     res$setHeader("Access-Control-Allow-Credentials", "true")
     if (req$REQUEST_METHOD == "OPTIONS") {
       res$status <- 200
