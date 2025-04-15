@@ -16,11 +16,10 @@ function(msg=""){
 
 #* Get books by id
 #* @param book_id:int  The book id to be selected (1 to 1000)
-#* @get /book
+#* @get /book_recommendations/<book_id>
 #* @tag Books
 function(book_id=5){
-  book_id <- as.integer(book_id)
-  get_book_by_id(book_id)
+  get_book_by_id(as.integer(book_id))
 }
 
 #* Get book recommendations
@@ -33,11 +32,10 @@ function(skill=NULL){
 
 #* Get company details
 #* @param company_id:int  The company id to be selected.
-#* @get /company_details
+#* @get /companies/<company_id>
 #* @tag Companies
 function(company_id=1){
-  company_id <- as.integer(company_id)
-  get_company_details(company_id)
+  get_company_details(as.integer(company_id))
 }
 
 #* Get companies
@@ -45,17 +43,15 @@ function(company_id=1){
 #* @get /companies
 #* @tag Companies
 function(limit=100){
-  limit <- as.integer(limit)
-  get_companies(limit)
+  get_companies(as.integer(limit))
 }
 
 #* Get specific learning track
 #* @param track_id:int  The learning track id to be selected.
-#* @get /learning_track_detail
+#* @get /learning_tracks/<track_id>
 #* @tag Learning tracks
 function(track_id){
-  track_id <- as.integer(track_id)
-  get_learning_track_by_id(track_id)
+  get_learning_track_by_id(as.integer(track_id))
 }
 
 #* Get learning tracks
@@ -68,10 +64,11 @@ function(skill_id=NULL){
 
 #* Get specific skill
 #* @param skill_id:str* The skill id to be selected. (url)
-#* @get /selected_skill
+#* @get /skills/<skill_id>
 #* @tag Skills
 function(skill_id){
-  get_skill_by_id(skill_id)
+  skill_id <- utils::URLdecode(skill_id)
+  get_skill_by_id(as.character(skill_id))
 }
 
 #* Get skills
