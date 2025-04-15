@@ -6,6 +6,16 @@ library(luxJob)
 #* @apiVersion 1.0.0
 #* @apiLicense MIT
 
+
+function(req, res) {
+  token <- req$HTTP_AUTHORIZATION
+  if (is.nul(token)) {
+    res$status <- 401
+    return(print("Missing token"))
+  }
+  print("Access granted!")
+}
+
 #* Echo the parameter that was sent in
 #* @param msg:string  The message to echo back.
 #* @get /echo
