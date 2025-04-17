@@ -1,0 +1,9 @@
+
+services:
+  api:
+    image: api_test:latest
+    restart: unless-stopped
+    env_file:
+      - .Renviron
+    ports:
+      - "8080:8080"

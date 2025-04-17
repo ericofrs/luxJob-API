@@ -1,0 +1,19 @@
+# dockerfile.base
+FROM rocker/tidyverse:4.4.3
+
+# Copy the renv.lock file to use for package restoration
+COPY renv.lock /app/renv.lock
+
+# Update system libraries and install PostgreSQL client libs
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libsodium-dev \
+        libpq-dev 
+
+# Set working directory
+WORKDIR /app
+
+# Install renv and restore R packages
+RUN Rscript -e 'install.packages("renv")' && \
+    Rscript -e 'renv::consent(provided = TRUE)' && \
+    Rscript -e 'renv::restore()'

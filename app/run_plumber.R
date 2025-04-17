@@ -1,4 +1,10 @@
+library(DBI)
+library(RPostgres)
+library(glue)
 library(plumber)
+library(tidyverse)
+library(usethis)
+source("auth_helper.R")
 library(luxJob)
 
 add_auth <- function(
@@ -45,6 +51,6 @@ pr("plumber.R") |> #nolint
     plumber::forward()
   }) |>
   pr_run(
-    port = 8008,
+    port = 8080,
     host = "0.0.0.0"
   )

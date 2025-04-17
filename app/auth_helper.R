@@ -24,6 +24,7 @@ auth_helper <- function(
       # environment_not_set <- nchar(Sys.getenv("TOKEN")) <= 1
       
       if (key_is_valid) {
+        adjust_quota(supplied_token)
         return(FUN(...))
       }
     }
